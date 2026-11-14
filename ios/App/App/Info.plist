@@ -24,6 +24,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Take a photo of your drawing to send it to Sketch Fury as a fighter idea.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

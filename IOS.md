@@ -1,13 +1,17 @@
 # Sketch Fury for iPhone and iPad
 
-Preparation status (14 November 2026): the native project exists and Capacitor sync
-passes on Windows. It has **not** been compiled, signed, tested on iOS, uploaded, or
-submitted to Apple. Codemagic workflows are provided in `codemagic.yaml`; cloud builds have not yet run.
+Preparation status (14 November 2026): Codemagic's first simulator build succeeded
+with the iOS 26.5 Simulator SDK. The downloaded app bundle and build log were
+verified. The bundle ID and App Store Connect app are registered with Apple.
+Codemagic generated a signed version 1.0.0 (3), and Apple accepted the upload
+without errors. Apple processed it, export compliance is complete, and the build
+is **Testing** in the `Sketch Fury Internal` group. The account holder is invited.
+Device/gameplay testing and App Store submission are still pending.
 
 ## Project
 
 - Xcode project: `ios/App/App.xcodeproj`; shared scheme: `App`.
-- Bundle ID: `com.sketchfury.app` (still needs registration with Apple).
+- Bundle ID: `com.sketchfury.app` (registered with Apple).
 - Team: Compsmart Ltd, `64V9USNANZ`.
 - Version: `1.0.0`, build `1`; minimum iOS: `15.0`; iPhone and iPad.
 - The app loads `https://sketchfury.com/app` with a bundled offline error page.
@@ -50,23 +54,36 @@ Preserve the resolved Swift package lockfile after the first successful Mac buil
 
 ## Account and release work remaining
 
-1. Accept Apple's updated Developer Program License Agreement. The account currently
-   blocks developer resources pending acceptance. It also displayed membership
-   expiry in 21 days; renewal has not been purchased or enabled.
-2. Register the bundle ID and create the App Store Connect record. Use the existing
-   name `Sketch Fury: Draw & Fight`, English (UK), free pricing, Games/Action.
-3. Connect this repository and signing credentials to Codemagic as described in
-   README.md. The workflows are prepared; no cloud build has been run.
+1. The Developer Program and App Store Connect agreements have been accepted.
+   Membership expires on 5 December 2026; renewal has not been purchased or enabled.
+2. The App Store Connect record is `Sketch Fury: Draw & Fight`, Apple ID
+   `6834948397`, SKU `sketchfury-ios`, English (UK). Pricing/categories remain to set.
+3. Codemagic is connected using integration `sketchfury-app-store`, certificate
+   `sketchfury-distribution`, and profile `sketchfury-app-store-profile`.
+   The certificate/profile expire 14 November 2027. The signed IPA built, uploaded,
+   and processed successfully. Private signing files are not stored in this repo.
 4. Finish push setup below before claiming Android notification parity.
 5. Run on iPhone and iPad: launch, offline/retry, draw/import/send a sketch, queue,
    landscape play and portrait return, audio, share sheet, safe areas, suspend/resume,
    moderation reports, and online matches. Verify notifications on a real device.
 6. Capture screenshots of the actual iOS app at Apple's accepted sizes. Existing
    Android screenshots are references, not verified iOS screenshots.
-7. Complete privacy disclosures, age rating, content rights, export compliance,
+7. Complete privacy disclosures, age rating, content rights,
    review contact, and any applicable business/trader information. Review the
    current roster and moderation behaviour rather than copying Google's answers.
-8. Upload to TestFlight, test, then select the build and submit for App Review.
+8. Install build 1.0.0 (3) through the account holder's TestFlight invitation, test,
+   then select the build and submit for App Review after the listing is complete.
+
+## Uploaded build and export compliance
+
+- Build 1.0.0 (3) was built from commit `9f8e1ae8fc93359420886de24d1678873f5104b8`.
+- [TestFlight build](https://appstoreconnect.apple.com/teams/b6a637f6-950b-4843-82c5-090f4cc88d74/apps/6834948397/testflight/ios/6fdbfbf4-f397-4dc2-8d87-dab552453b3d)
+- Internal group `Sketch Fury Internal` has automatic distribution enabled.
+- Export compliance for build 3 was answered in App Store Connect. The app uses
+  Apple's system HTTPS/WebKit services and has no custom encryption implementation.
+  `ITSAppUsesNonExemptEncryption = false` is now set for future builds; that plist
+  addition is newer than build 3. Revisit this declaration if encryption use changes.
+- No external beta review or production App Review submission has been made.
 
 ## Push notifications are pending
 

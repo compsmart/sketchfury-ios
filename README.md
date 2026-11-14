@@ -61,8 +61,20 @@ signed device. See [IOS.md](IOS.md) for the remaining release checklist.
 ## Current validation and limitations
 
 The initial repository was prepared on Windows. Dependency installation, Capacitor
-sync, and static project/asset checks pass. A successful Mac compilation, signed
-archive, device testing and App Store submission are still pending.
+sync, and static project/asset checks pass. Codemagic's first simulator build on
+14 November 2026 succeeded using the iOS 26.5 Simulator SDK. The downloaded app
+bundle contains the expected native plugins, branding, and offline page. This
+confirms compilation. The signed workflow also built version 1.0.0 (3), and Apple
+accepted and processed the upload without errors. Build 3 is **Testing** in the
+`Sketch Fury Internal` TestFlight group, with the account holder invited.
+Device/gameplay testing and App Store submission are still pending.
+
+- [App Store Connect](https://appstoreconnect.apple.com/apps/6834948397/distribution)
+- [Signed Codemagic build](https://codemagic.io/app/6af8e63ef5a6f6afa552435a/build/6af8ed2790e83b09c4fa6231)
+
+Apple signing uses integration `sketchfury-app-store`, certificate
+`sketchfury-distribution`, and profile `sketchfury-app-store-profile`. They are saved
+in Codemagic; no signing secrets belong in this repository.
 
 Push notifications are deliberately disabled until Firebase Messaging/APNs are
 configured and tested. The drawing/queue/game screens remain available without push.
