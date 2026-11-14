@@ -67,7 +67,11 @@ bundle contains the expected native plugins, branding, and offline page. This
 confirms compilation. The signed workflow also built version 1.0.0 (3), and Apple
 accepted and processed the upload without errors. Build 3 is **Testing** in the
 `Sketch Fury Internal` TestFlight group, with the account holder invited.
-Device/gameplay testing and App Store submission are still pending.
+The developer tested build 3 through TestFlight and confirmed it works. Version
+1.0.0 (3) was submitted for production App Review on 14 November 2026 and is
+**Waiting for Review**, with automatic release after approval. The listing is free,
+public, rated 13+, and includes five screenshots each for iPhone and iPad.
+See [store/RELEASE.md](store/RELEASE.md) for the release record.
 
 - [App Store Connect](https://appstoreconnect.apple.com/apps/6834948397/distribution)
 - [Signed Codemagic build](https://codemagic.io/app/6af8e63ef5a6f6afa552435a/build/6af8ed2790e83b09c4fa6231)

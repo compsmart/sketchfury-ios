@@ -6,7 +6,9 @@ verified. The bundle ID and App Store Connect app are registered with Apple.
 Codemagic generated a signed version 1.0.0 (3), and Apple accepted the upload
 without errors. Apple processed it, export compliance is complete, and the build
 is **Testing** in the `Sketch Fury Internal` group. The account holder is invited.
-Device/gameplay testing and App Store submission are still pending.
+The developer tested build 3 in TestFlight and confirmed it works. Version 1.0.0 (3)
+was submitted for production App Review on 14 November 2026 and is **Waiting for
+Review**, with automatic release after approval. See [store/RELEASE.md](store/RELEASE.md).
 
 ## Project
 
@@ -55,24 +57,23 @@ Preserve the resolved Swift package lockfile after the first successful Mac buil
 ## Account and release work remaining
 
 1. The Developer Program and App Store Connect agreements have been accepted.
-   Membership expires on 5 December 2026; renewal has not been purchased or enabled.
+   The active Free Apps Agreement now runs through 5 December 2027.
 2. The App Store Connect record is `Sketch Fury: Draw & Fight`, Apple ID
-   `6834948397`, SKU `sketchfury-ios`, English (UK). Pricing/categories remain to set.
+   `6834948397`, SKU `sketchfury-ios`, English (UK). Free; Games / Action / Casual.
 3. Codemagic is connected using integration `sketchfury-app-store`, certificate
    `sketchfury-distribution`, and profile `sketchfury-app-store-profile`.
    The certificate/profile expire 14 November 2027. The signed IPA built, uploaded,
    and processed successfully. Private signing files are not stored in this repo.
 4. Finish push setup below before claiming Android notification parity.
-5. Run on iPhone and iPad: launch, offline/retry, draw/import/send a sketch, queue,
+5. For future regression testing, run on iPhone and iPad: launch, offline/retry, draw/import/send a sketch, queue,
    landscape play and portrait return, audio, share sheet, safe areas, suspend/resume,
    moderation reports, and online matches. Verify notifications on a real device.
-6. Capture screenshots of the actual iOS app at Apple's accepted sizes. Existing
-   Android screenshots are references, not verified iOS screenshots.
-7. Complete privacy disclosures, age rating, content rights,
-   review contact, and any applicable business/trader information. Review the
-   current roster and moderation behaviour rather than copying Google's answers.
-8. Install build 1.0.0 (3) through the account holder's TestFlight invitation, test,
-   then select the build and submit for App Review after the listing is complete.
+6. Five screenshots each for iPhone and iPad are uploaded. They reuse the existing
+   Play Store artwork depicting the shared app UI, preserved in Apple-sized layouts.
+   These are reused promotional assets, not newly captured iOS device screenshots.
+7. Privacy disclosures, age rating, content rights and review contact are complete.
+   Check the release record for account-level EU trader verification status.
+8. Build 1.0.0 (3) is submitted for App Review. Monitor Apple's response.
 
 ## Uploaded build and export compliance
 
@@ -83,7 +84,8 @@ Preserve the resolved Swift package lockfile after the first successful Mac buil
   Apple's system HTTPS/WebKit services and has no custom encryption implementation.
   `ITSAppUsesNonExemptEncryption = false` is now set for future builds; that plist
   addition is newer than build 3. Revisit this declaration if encryption use changes.
-- No external beta review or production App Review submission has been made.
+- Production App Review submission completed on 14 November 2026. No external
+  beta review was needed for the account holder's internal TestFlight test.
 
 ## Push notifications are pending
 
