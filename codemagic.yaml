@@ -1,0 +1,80 @@
+# Run manually from Codemagic or its REST API. No push-triggered builds.
+workflows:
+  ios-simulator:
+    name: iOS simulator - compile check
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      node: 22
+      xcode: latest
+    scripts:
+      - name: Install locked dependencies and prepare iOS
+        script: |
+          set -euo pipefail
+          npm ci
+          npm run ios:prepare
+      - name: Compile for iOS Simulator without signing
+        script: |
+          set -euo pipefail
+          mkdir -p build
+          xcodebuild -project ios/App/App.xcodeproj -scheme App \
+            -configuration Debug -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build/simulator.log
+      - name: Package simulator app
+        script: |
+          set -euo pipefail
+          ditto -c -k --sequesterRsrc --keepParent \
+            build/DerivedData/Build/Products/Debug-iphonesimulator/App.app \
+            build/SketchFury-simulator.zip
+    artifacts:
+      - build/SketchFury-simulator.zip
+      - build/simulator.log
+
+  ios-app-store:
+    name: iOS signed build - upload to App Store Connect
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      # Create an Apple Developer Portal integration with this exact name,
+      # or change the reference here to match your existing integration.
+      app_store_connect: sketchfury-app-store
+    environment:
+      node: 22
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.sketchfury.app
+    scripts:
+      - name: Install locked dependencies and prepare iOS
+        script: |
+          set -euo pipefail
+          npm ci
+          npm run ios:prepare
+      - name: Set unique build number
+        script: |
+          set -euo pipefail
+          : "${PROJECT_BUILD_NUMBER:?Codemagic project build number is required}"
+          cd ios/App
+          agvtool new-version -all "$((PROJECT_BUILD_NUMBER + 1))"
+      - name: Apply provisioning profiles
+        script: |
+          set -euo pipefail
+          xcode-project use-profiles
+      - name: Build signed IPA
+        script: |
+          set -euo pipefail
+          cd ios/App
+          xcode-project build-ipa --project App.xcodeproj --scheme App
+    artifacts:
+      - ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - ios/App/build/ios/archive/*.xcarchive/dSYMs/*.dSYM
+    publishing:
+      app_store_connect:
+        auth: integration
+        # Upload for internal TestFlight testing. External beta review and
+        # production App Review are separate, deliberate release steps.
+        submit_to_testflight: false
+        submit_to_app_store: false

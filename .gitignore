@@ -1,0 +1,12 @@
+node_modules/
+build/
+build-out/
+.DS_Store
+.env
+.env.*
+*.p8
+*.p12
+*.mobileprovision
+**/GoogleService-Info.plist
+*.log
+.playwright-mcp/

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sketch Fury</title>
+<!-- The only page that ships inside the app. The shell shows it when the game cannot be loaded
+     (no connection, or the server is restarting). It keeps trying by itself.
+     This is a template: tools/prepare-ios.mjs writes www/offline.html from it with the address and the
+     logo filled in. The page must be complete in one file: while the app is pointed at the
+     server, the shell serves nothing else from inside the app. -->
+<style>
+  html, body { margin: 0; height: 100%; background: #110d1d; color: #f5f1ff; font: 16px/1.5 system-ui, -apple-system, Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box;
+    background: radial-gradient(ellipse at 50% 55%, #4a1d12 0%, #24142c 45%, #110d1d 75%); }
+  img { width: min(70vw, 340px); height: auto; }
+  h1 { margin: 26px 0 8px; font: 800 26px/1.1 system-ui, sans-serif; font-style: italic; text-transform: uppercase; letter-spacing: .02em; color: #ffd21f; }
+  p { margin: 0 0 24px; max-width: 22em; color: #b9b3cf; }
+  button { min-height: 54px; padding: 0 34px; border: 3px solid #07050d; background: linear-gradient(180deg, #ffe873, #ffd21f 45%, #f0a300); color: #15101f;
+    font: 800 17px/1 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; transform: skewX(-10deg); box-shadow: 4px 4px 0 #07050d; }
+  button:active { transform: skewX(-10deg) translate(3px, 3px); box-shadow: 1px 1px 0 #07050d; }
+  small { display: block; margin-top: 22px; min-height: 1.4em; color: #8c86a6; }
+</style>
+</head>
+<body>
+<img src="__LOGO__" alt="Sketch Fury" width="700" height="427">
+<h1>No connection</h1>
+<p>Sketch Fury needs the internet to fetch the fighters. Check your connection and we will jump straight back in.</p>
+<button type="button" id="retry">Try again</button>
+<small id="note"></small>
+<script>
+  var url = '__APP_URL__', note = document.getElementById('note'), going = false;
+  function go() { if (going) return; going = true; note.textContent = 'Connecting...'; location.replace(url); }
+  // by itself it only leaves this page once the server really answers (a failed load would
+  // bring it straight back); the button always tries, so it works whatever went wrong
+  function check() { if (!going) fetch(url, { mode: 'no-cors', cache: 'no-store' }).then(go, function () {}); }
+  document.getElementById('retry').addEventListener('click', go);
+  window.addEventListener('pageshow', function () { going = false; note.textContent = ''; });
+  window.addEventListener('online', check);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') check(); });
+  setInterval(function () { if (document.visibilityState === 'visible') check(); }, 5000);
+</script>
+</body>
+</html>

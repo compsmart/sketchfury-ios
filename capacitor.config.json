@@ -1,0 +1,37 @@
+{
+  "appId": "com.sketchfury.app",
+  "appName": "Sketch Fury",
+  "webDir": "www",
+  "backgroundColor": "#110d1d",
+  "server": {
+    "url": "https://sketchfury.com/app",
+    "errorPath": "offline.html"
+  },
+  "ios": {
+    "backgroundColor": "#110d1d",
+    "contentInset": "never",
+    "appendUserAgent": "SketchFuryApp/1.0"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "DARK",
+      "initialViewportFitValueHint": "cover"
+    },
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "launchShowDuration": 900,
+      "launchFadeOutDuration": 250,
+      "backgroundColor": "#110d1d",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    }
+  }
+}
