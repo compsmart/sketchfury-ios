@@ -16,9 +16,12 @@ Submitted 14 November 2026 at approximately 23:51 UTC.
 - Marketing URL: https://sketchfury.com
 - No sign-in or purchases required. Push notifications are disabled in this build.
 - Privacy disclosure published; no advertising tracking declared.
-- EU trader verification: incomplete. Setup was cancelled before final submission
-  because the developer does not want a personal number displayed publicly.
-  A dedicated public business contact or an EU availability decision is pending.
+- EU trader verification submitted 15 November 2026; Apple status **In Review**.
+  The public telephone is the existing Twilio business number `+44 7458 158688`,
+  with `support@sketchfury.com`. Email verification succeeded. Apple SMS did not
+  arrive, so a company letter was submitted through Apple's manual phone
+  verification flow. No personal phone number is used in the public trader details.
+  Existing Twilio call and SMS routing was not changed. No new number was purchased.
 
 [App Store Connect](https://appstoreconnect.apple.com/apps/6834948397/distribution/ios/version/inflight)
 
